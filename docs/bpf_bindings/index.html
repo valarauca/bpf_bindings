@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `bpf_bindings` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, bpf_bindings">
+
+    <title>bpf_bindings - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'></p><script>window.sidebarCurrent = {name: 'bpf_bindings', ty: 'mod', relpath: '../'};</script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>bpf_bindings</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-0' class='srclink' href='../src/bpf_bindings/src/lib.rs.html#19-676' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>Simple Bindings to BPF</p>
+
+<p>The Berkeley Packet Filter is a simple 3 register RISC-like Virtual Machine.
+There are 3 registers. PC (Program Counter) Think of this like an instruction
+pointer. A (Accumulator) this is a general purpose register. X (index) this
+is a general purpose register. All registers are 32bits wide. There are two
+general purpose memory locations. P[] (The Packet) immutable read only
+and M[] (Scratch Pad) read/write memory for the user to manipulate.
+This memory is indexed like a byte array. The general notation I will use is
+P[INDEX:READ_WIDTH], this is similiar to the python slice notation. For
+example A = P[15:2] will store 2 bytes (Index 15, and 16) of the packet
+in the lower two bytes of The Accumulator Register.</p>
+
+<p>For a more indepth explaination see: <a href="https://www.freebsd.org/cgi/man.cgi?bpf(4)">https://www.freebsd.org/cgi/man.cgi?bpf(4)</a></p>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Alu.html'
+                                  title='bpf_bindings::Alu'>Alu</a></td>
+                           <td class='docblock short'>
+                                <p>ALU Commands.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.CopyReg.html'
+                                  title='bpf_bindings::CopyReg'>CopyReg</a></td>
+                           <td class='docblock short'>
+                                <p>Copy Reg</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Jmp.html'
+                                  title='bpf_bindings::Jmp'>Jmp</a></td>
+                           <td class='docblock short'>
+                                <p>Jump Instructions</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.LoadA.html'
+                                  title='bpf_bindings::LoadA'>LoadA</a></td>
+                           <td class='docblock short'>
+                                <p>Load Accumulator Register</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.LoadX.html'
+                                  title='bpf_bindings::LoadX'>LoadX</a></td>
+                           <td class='docblock short'>
+                                <p>Load Index Register</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Ret.html'
+                                  title='bpf_bindings::Ret'>Ret</a></td>
+                           <td class='docblock short'>
+                                <p>Exit Program</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.StoreReg.html'
+                                  title='bpf_bindings::StoreReg'>StoreReg</a></td>
+                           <td class='docblock short'>
+                                <p>Store Register</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.bpf_factory.html'
+                                  title='bpf_bindings::bpf_factory'>bpf_factory</a></td>
+                           <td class='docblock short'>
+                                <p>Berkeley Packet Filter Program Factory</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.bpf_insn.html'
+                                  title='bpf_bindings::bpf_insn'>bpf_insn</a></td>
+                           <td class='docblock short'>
+                                <p>Berkeley Packet Filter Instruction</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.bpf_program.html'
+                                  title='bpf_bindings::bpf_program'>bpf_program</a></td>
+                           <td class='docblock short'>
+                                <p>Berkeley Packet Filter Program</p>
+                           </td>
+                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.SliceSize.html'
+                                  title='bpf_bindings::SliceSize'>SliceSize</a></td>
+                           <td class='docblock short'>
+                                <p>This enum is used to set the size of a read or write. Word reads 32bits, 4 bytes.
+HalfWord reads 16bits, 2 bytes. Byte sets... well 1 byte.</p>
+                           </td>
+                       </tr></table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "bpf_bindings";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script defer src="../search-index.js"></script>
+</body>
+</html>
