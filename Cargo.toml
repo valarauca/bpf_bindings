@@ -1,0 +1,6 @@
+[package]
+name = "bpf_bindings"
+version = "0.1.0"
+authors = ["root"]
+
+[dependencies]
