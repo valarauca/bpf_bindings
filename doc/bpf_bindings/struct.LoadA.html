@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `LoadA` struct in crate `bpf_bindings`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, LoadA">
+
+    <title>bpf_bindings::LoadA - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>bpf_bindings</a></p><script>window.sidebarCurrent = {name: 'LoadA', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>bpf_bindings</a>::<wbr><a class='struct' href=''>LoadA</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-241' class='srclink' href='../src/bpf_bindings/src/lib.rs.html#232-234' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct LoadA {
+    // some fields omitted
+}</pre><div class='docblock'><p>Load Accumulator Register</p>
+
+<p>These functions are use dto load the Accumulator Register (A). Examples:</p>
+
+<pre class='rust rust-example-rendered'>
+  <span class='kw'>use</span> <span class='ident'>bpf_bindings</span>::{<span class='ident'>SliceSize</span>,<span class='ident'>LoadA</span>,<span class='ident'>bpf_insn</span>};
+
+  <span class='comment'>//A = 25</span>
+  <span class='kw'>let</span> <span class='ident'>a</span>: <span class='ident'>bpf_insn</span> <span class='op'>=</span> <span class='ident'>LoadA</span>::<span class='ident'>set</span>(<span class='number'>25</span>);
+
+  <span class='comment'>//A = M[100]</span>
+  <span class='kw'>let</span> <span class='ident'>b</span>: <span class='ident'>bpf_insn</span> <span class='op'>=</span> <span class='ident'>LoadA</span>::<span class='ident'>memory</span>(<span class='number'>100</span>);
+
+  <span class='comment'>//A = PACKETLEN</span>
+  <span class='kw'>let</span> <span class='ident'>c</span>: <span class='ident'>bpf_insn</span> <span class='op'>=</span> <span class='ident'>LoadA</span>::<span class='ident'>packet_len</span>();
+
+  <span class='comment'>//A = P[25:1] read 1 byte at the 25th index (0 based) of the packet</span>
+  <span class='kw'>let</span> <span class='ident'>d</span>: <span class='ident'>bpf_insn</span> <span class='op'>=</span> <span class='ident'>LoadA</span>::<span class='ident'>read_size</span>(<span class='ident'>SliceSize</span>::<span class='ident'>Byte</span>).<span class='ident'>packet</span>(<span class='number'>25</span>);
+
+  <span class='comment'>//A = P[0+X:1] read 1 byte at the Index Register index of the packet</span>
+  <span class='kw'>let</span> <span class='ident'>e</span>: <span class='ident'>bpf_insn</span> <span class='op'>=</span> <span class='ident'>LoadA</span>::<span class='ident'>read_size</span>(<span class='ident'>SliceSize</span>::<span class='ident'>Byte</span>).<span class='ident'>packet_index</span>(<span class='number'>0</span>);</pre>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../bpf_bindings/struct.LoadA.html' title='bpf_bindings::LoadA'>LoadA</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-243' class='srclink' href='../src/bpf_bindings/src/lib.rs.html#235-297' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../bpf_bindings/struct.LoadA.html' title='bpf_bindings::LoadA'>LoadA</a></code></h4>
+<div class='docblock'><p>Build a new LoadA instruction</p>
+</div><h4 id='method.packet_len' class='method'><code>fn <a href='#method.packet_len' class='fnname'>packet_len</a>() -&gt; <a class='struct' href='../bpf_bindings/struct.bpf_insn.html' title='bpf_bindings::bpf_insn'>bpf_insn</a></code></h4>
+<div class='docblock'><p>A = PACKET_LEN</p>
+</div><h4 id='method.set' class='method'><code>fn <a href='#method.set' class='fnname'>set</a>(k: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; <a class='struct' href='../bpf_bindings/struct.bpf_insn.html' title='bpf_bindings::bpf_insn'>bpf_insn</a></code></h4>
+<div class='docblock'><p>A = K</p>
+</div><h4 id='method.memory' class='method'><code>fn <a href='#method.memory' class='fnname'>memory</a>(k: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; <a class='struct' href='../bpf_bindings/struct.bpf_insn.html' title='bpf_bindings::bpf_insn'>bpf_insn</a></code></h4>
+<div class='docblock'><p>A = M[K]</p>
+</div><h4 id='method.read_size' class='method'><code>fn <a href='#method.read_size' class='fnname'>read_size</a>(s: <a class='enum' href='../bpf_bindings/enum.SliceSize.html' title='bpf_bindings::SliceSize'>SliceSize</a>) -&gt; <a class='struct' href='../bpf_bindings/struct.LoadA.html' title='bpf_bindings::LoadA'>LoadA</a></code></h4>
+<div class='docblock'><p>Set read size</p>
+</div><h4 id='method.packet' class='method'><code>fn <a href='#method.packet' class='fnname'>packet</a>(self, k: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; <a class='struct' href='../bpf_bindings/struct.bpf_insn.html' title='bpf_bindings::bpf_insn'>bpf_insn</a></code></h4>
+<div class='docblock'><p>A = P[K:#] develoepr MUST set read size.</p>
+</div><h4 id='method.packet_index' class='method'><code>fn <a href='#method.packet_index' class='fnname'>packet_index</a>(self, k: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; <a class='struct' href='../bpf_bindings/struct.bpf_insn.html' title='bpf_bindings::bpf_insn'>bpf_insn</a></code></h4>
+<div class='docblock'><p>A = P[X+K:#] developer MUST set read size</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "bpf_bindings";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script defer src="../search-index.js"></script>
+</body>
+</html>
