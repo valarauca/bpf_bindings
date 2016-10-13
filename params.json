@@ -1,6 +1,0 @@
-{
-  "name": "Bpf bindings",
-  "tagline": "Berkeley Packet Filtering Bindings (32bit, FreeBSD Based)",
-  "body": "### BPF Bindings\r\nThis is a simple page to hopefully let me be able to use the gh-pages branch",
-  "note": "Don't delete this file! It's used internally to help with page regeneration."
-}
