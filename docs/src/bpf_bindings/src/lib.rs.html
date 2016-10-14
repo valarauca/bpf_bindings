@@ -718,6 +718,16 @@
 <span id="674">674</span>
 <span id="675">675</span>
 <span id="676">676</span>
+<span id="677">677</span>
+<span id="678">678</span>
+<span id="679">679</span>
+<span id="680">680</span>
+<span id="681">681</span>
+<span id="682">682</span>
+<span id="683">683</span>
+<span id="684">684</span>
+<span id="685">685</span>
+<span id="686">686</span>
 </pre><pre class='rust '>
 <span class='comment'>//Copyright 2016 William Cody Laeder</span>
 <span class='comment'>//</span>
@@ -1341,6 +1351,16 @@
 <span class='doccomment'>///       let z = Ret::read_a();</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Ret</span>;
 <span class='kw'>impl</span> <span class='ident'>Ret</span> {
+    <span class='doccomment'>///This will accept the packet. Really it is telling the kernel to accept</span>
+    <span class='doccomment'>///~3.6GB length packet. So the kernel will just accept the whole packet.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>accept</span>() <span class='op'>-&gt;</span> <span class='ident'>bpf_insn</span> {
+        <span class='ident'>bpf_insn</span> {
+            <span class='ident'>code</span>: <span class='ident'>BPF_RET</span><span class='op'>|</span><span class='ident'>BPF_K</span>,
+            <span class='ident'>jt</span>: <span class='number'>0</span>,
+            <span class='ident'>jf</span>: <span class='number'>0</span>,
+            <span class='ident'>k</span>: <span class='ident'>std</span>::<span class='ident'>u32</span>::<span class='ident'>MAX</span>
+        }
+    }
     <span class='doccomment'>///This is reject the packet</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>reject</span>() <span class='op'>-&gt;</span> <span class='ident'>bpf_insn</span> {
         <span class='ident'>bpf_insn</span> {

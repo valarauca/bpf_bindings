@@ -64,8 +64,11 @@ the developer to trim the length of a packet, or reject a packet.</p>
 
    <span class='comment'>//trim packet to a constant length, or reject it. Depends on A contents</span>
    <span class='kw'>let</span> <span class='ident'>z</span> <span class='op'>=</span> <span class='ident'>Ret</span>::<span class='ident'>read_a</span>();</pre>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../bpf_bindings/struct.Ret.html' title='bpf_bindings::Ret'>Ret</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-330' class='srclink' href='../src/bpf_bindings/src/lib.rs.html#622-651' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.reject' class='method'><code>fn <a href='#method.reject' class='fnname'>reject</a>() -&gt; <a class='struct' href='../bpf_bindings/struct.bpf_insn.html' title='bpf_bindings::bpf_insn'>bpf_insn</a></code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../bpf_bindings/struct.Ret.html' title='bpf_bindings::Ret'>Ret</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-330' class='srclink' href='../src/bpf_bindings/src/lib.rs.html#622-661' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.accept' class='method'><code>fn <a href='#method.accept' class='fnname'>accept</a>() -&gt; <a class='struct' href='../bpf_bindings/struct.bpf_insn.html' title='bpf_bindings::bpf_insn'>bpf_insn</a></code></h4>
+<div class='docblock'><p>This will accept the packet. Really it is telling the kernel to accept
+~3.6GB length packet. So the kernel will just accept the whole packet.</p>
+</div><h4 id='method.reject' class='method'><code>fn <a href='#method.reject' class='fnname'>reject</a>() -&gt; <a class='struct' href='../bpf_bindings/struct.bpf_insn.html' title='bpf_bindings::bpf_insn'>bpf_insn</a></code></h4>
 <div class='docblock'><p>This is reject the packet</p>
 </div><h4 id='method.read_constant' class='method'><code>fn <a href='#method.read_constant' class='fnname'>read_constant</a>(k: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; <a class='struct' href='../bpf_bindings/struct.bpf_insn.html' title='bpf_bindings::bpf_insn'>bpf_insn</a></code></h4>
 <div class='docblock'><p>Trim the packet to a constant length</p>

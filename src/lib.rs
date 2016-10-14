@@ -620,6 +620,16 @@ impl Jmp {
 ///       let z = Ret::read_a();
 pub struct Ret;
 impl Ret {
+    ///This will accept the packet. Really it is telling the kernel to accept
+    ///~3.6GB length packet. So the kernel will just accept the whole packet.
+    pub fn accept() -> bpf_insn {
+        bpf_insn {
+            code: BPF_RET|BPF_K,
+            jt: 0,
+            jf: 0,
+            k: std::u32::MAX
+        }
+    }
     ///This is reject the packet
     pub fn reject() -> bpf_insn {
         bpf_insn {
