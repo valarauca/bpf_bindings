@@ -74,7 +74,7 @@ const BPF_JSET: u16 = 0x40u16;
 ///Berkeley Packet Filter Instruction
 ///
 ///This is the general layout of a BPF Instruction. Not all fields are used on
-///every instruction. Code defines _what_ the instruction will do. JT and JF 
+///every instruction. Code defines _what_ the instruction will do. JT and JF
 ///are used on branching instructions. Jump Forward, Jump Back. They are used
 ///to manipulate the PC register. K is a data value. It's purpose changes based
 ///on the code field.
@@ -139,6 +139,7 @@ pub struct bpf_program {
 ///     ];
 ///     let program = bpf_factory::from_vec(v).unwrap();
 ///
+#[derive(Clone)]
 pub struct bpf_factory {
     data: Vec<bpf_insn>
 }
@@ -166,13 +167,52 @@ impl bpf_factory {
     pub fn len(&self) -> usize {
         self.data.len()
     }
-    ///Add an instruction
-    pub fn append(&mut self, instruction: bpf_insn) {
-        self.data.push(instruction);
+    ///Add Instruction at end
+    pub fn append(&mut self, insn: bpf_insn) {
+        self.data.push(insn);
+    }
+    ///Append many
+    pub fn append_many(&mut self, data: Vec<bpf_insn>) {
+        self.data.extend_from_slice(data.as_slice());
+    }
+    ///insert at index 0
+    pub fn push(&mut self, insn: bpf_insn) {
+        self.data.insert(0,insn)
+    }
+    ///finds the first occurance of instruction
+    pub fn find_insn(&self, insn: bpf_insn) -> Option<usize> {
+        for i in self.data.iter().enumerate() {
+            if *i.1 == insn {
+                return Some(i.0);
+            }
+        }
+        None
+    }
+    //find instruction at an offset
+    pub fn find_insn_offset(&self, offset: usize, insn: bpf_insn) -> Option<usize> {
+        for i in self.data.iter().enumerate().skip(offset) {
+            if *i.1 == insn {
+                return Some(i.0);
+            }
+        }
+        None
     }
     ///insert into specific location
     pub fn insert(&mut self, index: usize, instruction: bpf_insn) {
         self.data.insert(index, instruction);
+    }
+    ///insert several instructions
+    pub fn insert_many(&mut self, offset: usize, insn: Vec<bpf_insn> ) {
+        let new_len = insn.len() + self.data.len();
+        let mut new_data = Vec::with_capacity(new_len);
+        //borrow checker is awesome -_-
+        {
+            let (ptr_start,ptr_end) = self.data.split_at(offset);
+            new_data.extend_from_slice(ptr_start);
+            new_data.extend_from_slice(insn.as_slice());
+            new_data.extend_from_slice(ptr_end);
+        }
+        self.data = new_data;
     }
     ///convert to kernel format for ingestion. This returns none if the program
     ///is >= i32::MAX
@@ -313,7 +353,7 @@ impl LoadA {
 ///
 ///      //X = IPHeaderLength
 ///      let d: bpf_insn = LoadX::ip_header_len(0);
-/// 
+///
 pub struct LoadX {
     data: u16
 }
@@ -349,7 +389,7 @@ impl LoadX {
         bpf_insn {
             code: BPF_LDX|BPF_W|BPF_LEN,
             jt: 0,
-            jf: 0, 
+            jf: 0,
             k: 0
         }
     }
@@ -367,7 +407,7 @@ impl LoadX {
 ///Store Register
 ///
 ///This structure is used to store a register's value into a constant location
-///of scratch memory. 
+///of scratch memory.
 ///
 ///Example:
 ///
@@ -408,7 +448,7 @@ impl StoreReg {
 
 ///ALU Commands.
 ///
-///Result is always Assigned to A. Each ALU instruction can only 
+///Result is always Assigned to A. Each ALU instruction can only
 ///perform 1 operation (ADD (+), MUL (*), SUB (-), DIV (/), AND (&), OR (|), LeftShift (<<), RightShift (>>)). The API will not throw an error if the user chains
 ///mutiple values, but the kernel will.
 ///
@@ -418,7 +458,7 @@ impl StoreReg {
 ///
 ///      //A = A + K
 ///      let x: bpf_insn = Alu::add().constant(5);
-///      
+///
 ///      //A = A | X (bitwise)
 ///      let y: bpf_insn = Alu::or().x_reg();
 ///
@@ -507,7 +547,7 @@ impl Alu {
             k: 0
         }
     }
-} 
+}
 
 ///Jump Instructions
 ///
@@ -521,7 +561,7 @@ impl Alu {
 ///This means the deverlop is either comparing A to X or A to K.
 ///
 ///The allowed Comparison operations are Equal (==), And (&), GT (>), GTE (>=).
-///Only one comparison operator is allows per instruction. 
+///Only one comparison operator is allows per instruction.
 ///
 ///Some Examples:
 ///
