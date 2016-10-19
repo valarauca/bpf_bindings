@@ -188,6 +188,11 @@ impl bpf_factory {
         }
         None
     }
+    ///replace an instruction
+    pub fn replace(&mut self, index: usize, insn: bpf_insn) {
+        let _ = self.data.remove(index);
+        self.data.insert(index-1,insn);
+    }
     //find instruction at an offset
     pub fn find_insn_offset(&self, offset: usize, insn: bpf_insn) -> Option<usize> {
         for i in self.data.iter().enumerate().skip(offset) {
