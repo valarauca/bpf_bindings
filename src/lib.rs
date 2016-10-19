@@ -214,6 +214,10 @@ impl bpf_factory {
         }
         self.data = new_data;
     }
+    //get the pointer to the underlying buffer
+    pub fn buffer<'a>(&'a self) -> &'a [bpf_insn]  {
+        self.data.as_slice()
+    }
     ///convert to kernel format for ingestion. This returns none if the program
     ///is >= i32::MAX
     pub fn to_kernel(self) -> Option<bpf_program >{
